@@ -1,0 +1,31 @@
+[
+    {
+        "name": "usuario1",
+        "password": "abc123456",
+        "stores": [
+            "emergencia"
+        ],
+        "isAdmin": false
+    },
+    {
+        "name": "usuario2",
+        "password": "contrase\u00f1a2",
+        "stores": [
+            "emergencia"
+        ],
+        "isAdmin": false
+    },
+    {
+        "name": "usuario3",
+        "password": "contrase\u00f1a3",
+        "stores": [
+            "emergencia"
+        ],
+        "isAdmin": false
+    },
+    {
+        "name": "admin",
+        "password": "admin",
+        "isAdmin": true
+    }
+]

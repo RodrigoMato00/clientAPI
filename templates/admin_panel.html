@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .user-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Admin Panel</a>
+            <div class="d-flex align-items-center">
+                <span class="navbar-text mr-3">Logged in as: <strong>{{ session.username }}</strong></span>
+                <a href="/logout" class="btn btn-outline-primary btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Admin Panel</h2>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Agregar Nuevo Usuario</h5>
+                <form method="post" action="/admin">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stores">Stores (separated by commas):</label>
+                        <input type="text" class="form-control" id="stores" name="stores">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="isAdmin" name="is_admin">
+                        <label class="form-check-label" for="isAdmin">Is Admin?</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Agregar Usuario</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="user-list mt-4">
+            <h5>Usuarios Existentes</h5>
+            <ul class="list-group">
+                {% for user in users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ user.name }}
+                    <div>
+                        <a href="/admin/edit_user/{{ user.name }}" class="btn btn-sm btn-secondary">Editar</a>
+                        <a href="/admin/delete_user/{{ user.name }}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

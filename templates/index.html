@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ask a Store</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .chat-box {
+            margin-top: 50px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+        .chat-form input, .chat-form button, .chat-form select {
+            margin-top: 10px;
+        }
+        .navbar-custom {
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+        .navbar-custom .navbar-brand {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-custom navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Ask a Store</a>
+            <div class="d-flex align-items-center">
+                <span class="mr-3">Logged in as: <strong>{{ session.username }}</strong></span>
+                <a href="/logout" class="btn btn-outline-primary btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="chat-box">
+            <h2>Chat with a Store</h2>
+            <form class="chat-form" method="post" action="/ask">
+                <div class="form-group">
+                    <label for="storeName">Store Name:</label>
+                    <select class="form-control" id="storeName" name="storeName">
+                        {% for store in stores %}
+                        <option value="{{ store }}">{{ store }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="question">Question:</label>
+                    <input type="text" class="form-control" id="question" name="question">
+                </div>
+                <button type="submit" class="btn btn-primary">Ask</button>
+            </form>
+            <!-- Área para mostrar la respuesta -->
+            {% if answer %}
+            <div class="chat-response">
+                <div class="chat-message">
+                    <strong>Tu Pregunta a {{ store_name }}:</strong>
+                    <p>{{ question }}</p>
+                </div>
+                <div class="response">
+                    <strong>Respuesta de {{ store_name }}:</strong>
+                    <p>{{ answer }}</p>
+                    {% if sources %}
+                        <p>Fuentes: <a href="{{ sources }}">{{ sources }}</a></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
